@@ -35,7 +35,7 @@ exports.getAllCountriesAndElectricityConsumptionByCountry = (req, res, next) => 
                 next(err)
             }
             else {
-                res.status(200).json({alcohols: {electricity}})
+                res.status(200).json({electricityConsumption: {electricity}})
             }
         });
     }
@@ -48,7 +48,7 @@ exports.getAllCountriesAndElectricityConsumptionByCountry = (req, res, next) => 
                 next(err)
             }
             else {
-                res.status(200).send(xml({electricity: electricity}));
+                res.status(200).send(xml({electricityConsumption: electricity}));
             }
         });
     }
@@ -76,7 +76,7 @@ exports.postCountryAndElectricityConsumption = (req, res, next) => {
                 next(err)
             }
             else {
-                res.status(201).json({electricity: req.body});
+                res.status(201).json({electricityConsumption: req.body});
             }
         })
     }
@@ -130,7 +130,7 @@ exports.updateCountryAndElectricityConsumption = (req, res, next) => {
                 next(err)
             }
             else {
-                res.status(201).json({electricity: req.body});
+                res.status(201).json({electricityConsumption: req.body});
             }
         });
     }

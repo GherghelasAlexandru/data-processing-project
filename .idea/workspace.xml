@@ -2,13 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="758dd867-b536-482f-b6ad-c101a6c2a8ba" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/schemaForValidation/electricityXsd.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schemaForValidation/happinessJSON.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schemaForValidation/happinessXSD.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schemaForValidation/internetJSON.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schemaForValidation/internetXSD.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/electricity.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/electricity.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/happiness.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/happiness.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/internet.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/internet.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/electricity.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/electricity.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schemaForValidation/electricity.js" beforeDir="false" afterPath="$PROJECT_DIR$/schemaForValidation/electricityJSON.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/happiness.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/happiness.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/internet.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/internet.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,13 +38,16 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="26i4e6jJHaevWD66kIJaCbXQ0sR" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -61,12 +68,15 @@
       <updated>1647893164089</updated>
       <workItem from="1647893165414" duration="11210000" />
       <workItem from="1647909802989" duration="1068000" />
-      <workItem from="1647953696321" duration="5688000" />
+      <workItem from="1647953696321" duration="8903000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="719" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1647897640708">
