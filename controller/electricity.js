@@ -83,7 +83,7 @@ exports.postCountryAndElectricityConsumption = (req, res, next) => {
     }
 
     if(req.get('Content-Type') === 'application/xml') {
-        const electricityXmlData = parseXmlString(req.body);
+        const electricityXmlData = libxml.parseXmlString(req.body);
 
         const country = electricityXmlData.get('//country');
         const percentage = electricityXmlData.get('//percentage');

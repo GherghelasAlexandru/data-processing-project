@@ -86,7 +86,7 @@ exports.postInternetCountry = (req, res, next) => {
     }
 
     if(req.get('Content-Type') === 'application/xml') {
-        const internetXmlData = parseXmlString(req.body);
+        const internetXmlData = libxml.parseXmlString(req.body);
 
         const country = internetXmlData.get('//country');
         const internet_users = internetXmlData.get('//internet_users');

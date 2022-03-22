@@ -10,7 +10,7 @@ const {
 } = require('../controller/electricity');
 
 electricityConsumptionRouter.get('/', getAllCountriesAndElectricityConsumption);
-electricityConsumptionRouter.get('/:country', getAllCountriesAndElectricityConsumptionById);
+electricityConsumptionRouter.get('/:id', getAllCountriesAndElectricityConsumptionById);
 electricityConsumptionRouter.post('/', postCountryAndElectricityConsumption);
 electricityConsumptionRouter.put('/:id',updateCountryAndElectricityConsumption);
 electricityConsumptionRouter.delete('/:id',deleteCountryAndElectricityConsumption);

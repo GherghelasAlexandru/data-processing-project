@@ -84,7 +84,7 @@ exports.postCountryAndHappiness = (req, res, next) => {
     }
 
     if(req.get('Content-Type') === 'application/xml') {
-        const happinessXmlData = parseXmlString(req.body);
+        const happinessXmlData = libxml.parseXmlString(req.body);
 
         const rank = happinessXmlData.get('//rank');
         const country = happinessXmlData.get('//country');

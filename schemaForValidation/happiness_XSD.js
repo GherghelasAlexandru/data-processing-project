@@ -1,0 +1,20 @@
+const happinessSchema = '<?xml version="1.0" encoding="utf-8"?>' +
+    '<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"' +
+    '           attributeFormDefault="unqualified">' +
+    '    <xs:element name="HappinessReport">' +
+    '        <xs:complexType>' +
+    '            <xs:sequence>' +
+    '                <xs:element name="HappinessReportPerCountry" type="HappinessReportDetails" minOccurs="0" maxOccurs="unbounded" />' +
+    '            </xs:sequence>' +
+    '        </xs:complexType>' +
+    '    </xs:element>' +
+    '    <xs:complexType name="HappinessReportDetails">' +
+    '        <xs:sequence>' +
+    '            <xs:element name="rank" type="xs:string" maxOccurs="1"/>' +
+    '            <xs:element name="country" type="xs:string" maxOccurs="1"/>' +
+    '            <xs:element name="score" type="xs:integer" maxOccurs="1"/>' +
+    '        </xs:sequence>' +
+    '    </xs:complexType>' +
+    '</xs:schema>'
+
+module.exports = happinessSchema;

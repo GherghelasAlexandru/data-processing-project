@@ -1,5 +1,5 @@
 {
-  "$schema": "electricity-schema.json",
+  "$schema": "electricity.schema.json",
   "electricity": [
     {
       "id": 1,
