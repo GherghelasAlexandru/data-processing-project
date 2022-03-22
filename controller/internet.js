@@ -2,13 +2,13 @@ const dbConnect = require('../dbConnect');
 
 const JsonValidator = require('jsonschema').Validator;
 const v = new JsonValidator();
-const internetSchemaJson = require('../schemaForValidation/internetJSON');
+const internetSchemaJson = require('../schemaForValidation/internet_JSON');
 v.addSchema(internetSchemaJson);
 
 const xml = require("object-to-xml");
 const libxml = require('libxmljs2');
 
-const internetSchemaXml = require('../schemaForValidation/internetXSD');
+const internetSchemaXml = require('../schemaForValidation/internet_XSD');
 const xmlDoc = libxml.parseXmlString(internetSchemaXml);
 
 exports.getAllInternetCountries = (req, res, next) => {

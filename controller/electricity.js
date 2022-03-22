@@ -2,13 +2,13 @@ const dbConnect = require('../dbConnect');
 
 const JsonValidator = require('jsonschema').Validator;
 const v = new JsonValidator();
-const electricitySchemaJson = require('../schemaForValidation/electricityJSON');
+const electricitySchemaJson = require('../schemaForValidation/electricity_JSON');
 v.addSchema(electricitySchemaJson);
 
 const xml = require("object-to-xml");
 const libxml = require('libxmljs2');
 
-const electricitySchemaXml = require('../schemaForValidation/electricityXsd');
+const electricitySchemaXml = require('../schemaForValidation/electricity_XSD');
 const xmlDoc = libxml.parseXmlString(electricitySchemaXml);
 
 exports.getAllCountriesAndElectricityConsumption = (req, res, next) => {
@@ -26,11 +26,11 @@ exports.getAllCountriesAndElectricityConsumption = (req, res, next) => {
     });
 };
 
-exports.getAllCountriesAndElectricityConsumptionByCountry = (req, res, next) => {
+exports.getAllCountriesAndElectricityConsumptionById = (req, res, next) => {
     if(req.get('Content-Type') === 'application/json'){
-        const country = req.params.country;
+        const id = req.params.id;
 
-        dbConnect.query('SELECT * FROM alcohol WHERE country = ' + country, (err, electricity)  => {
+        dbConnect.query('SELECT * FROM alcohol WHERE id = ' + id, (err, electricity)  => {
             if(err) {
                 next(err)
             }
@@ -41,9 +41,9 @@ exports.getAllCountriesAndElectricityConsumptionByCountry = (req, res, next) => 
     }
 
     if(req.get('Content-Type') === 'application/xml') {
-        const country = req.params.country;
+        const id = req.params.id;
 
-        dbConnect.query('SELECT * FROM electricity WHERE country = ' + country, (err, electricity)  => {
+        dbConnect.query('SELECT * FROM electricity WHERE id = ' + id, (err, electricity)  => {
             if(err) {
                 next(err)
             }
@@ -56,6 +56,7 @@ exports.getAllCountriesAndElectricityConsumptionByCountry = (req, res, next) => 
 
 exports.postCountryAndElectricityConsumption = (req, res, next) => {
     if(req.get('Content-Type') === 'application/json') {
+
         const country = req.body.country;
         const percentage = req.body.percentage;
 

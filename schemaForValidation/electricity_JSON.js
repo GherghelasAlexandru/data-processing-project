@@ -14,5 +14,4 @@ const electricityConsumptionSchema = {
     },
     "required": ["country", "percentage"]
 };
-
 module.exports = electricityConsumptionSchema;

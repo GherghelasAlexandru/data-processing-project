@@ -3,14 +3,14 @@ const electricityConsumptionRouter = express.Router();
 
 const {
         getAllCountriesAndElectricityConsumption,
-        getAllCountriesAndElectricityConsumptionByCountry,
+        getAllCountriesAndElectricityConsumptionById,
         postCountryAndElectricityConsumption,
         updateCountryAndElectricityConsumption,
         deleteCountryAndElectricityConsumption
 } = require('../controller/electricity');
 
 electricityConsumptionRouter.get('/', getAllCountriesAndElectricityConsumption);
-electricityConsumptionRouter.get('/:country', getAllCountriesAndElectricityConsumptionByCountry);
+electricityConsumptionRouter.get('/:country', getAllCountriesAndElectricityConsumptionById);
 electricityConsumptionRouter.post('/', postCountryAndElectricityConsumption);
 electricityConsumptionRouter.put('/:id',updateCountryAndElectricityConsumption);
 electricityConsumptionRouter.delete('/:id',deleteCountryAndElectricityConsumption);

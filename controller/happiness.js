@@ -2,25 +2,25 @@ const dbConnect = require('../dbConnect');
 
 const JsonValidator = require('jsonschema').Validator;
 const v = new JsonValidator();
-const happinessSchemaJson = require('../schemaForValidation/happinessJSON');
+const happinessSchemaJson = require('../schemaForValidation/happiness_JSON');
 v.addSchema(happinessSchemaJson);
 
 const xml = require("object-to-xml");
 const libxml = require('libxmljs2');
 
-const happinessSchemaXml = require('../schemaForValidation/happinessXSD');
+const happinessSchemaXml = require('../schemaForValidation/happiness_XSD');
 const xmlDoc = libxml.parseXmlString(happinessSchemaXml);
 
 exports.getAllCountriesAndHappiness = (req, res, next) => {
-    dbConnect.query('SELECT * FROM happiness',(err, country) => {
+    dbConnect.query('SELECT * FROM happiness',(err, happiness) => {
         if(err) {
             next(err)
         } else {
             if(req.get('Content-Type') === 'application/xml') {
-                res.send(xml( {Countries: country}));
+                res.send(xml( {Countries: happiness}));
             }
             if(req.get('Content-Type') === 'application/json') {
-                res.status(200).json({Countries: country});
+                res.status(200).json({Countries: happiness});
             }
         }
     });
@@ -30,12 +30,12 @@ exports.getAllCountriesAndHappinessById = (req, res, next) => {
     if(req.get('Content-Type') === 'application/json'){
         const id = req.params.id;
 
-        dbConnect.query('SELECT * FROM happiness WHERE id = ' + id, (err, country)  => {
+        dbConnect.query('SELECT * FROM happiness WHERE id = ' + id, (err, happiness)  => {
             if(err) {
                 next(err)
             }
             else {
-                res.status(200).json({Countries: {country}})
+                res.status(200).json({Countries: {happiness}})
             }
         });
     }
@@ -43,12 +43,12 @@ exports.getAllCountriesAndHappinessById = (req, res, next) => {
     if(req.get('Content-Type') === 'application/xml') {
         const id = req.params.id;
 
-        dbConnect.query('SELECT * FROM happiness WHERE id = ' + id, (err, country)  => {
+        dbConnect.query('SELECT * FROM happiness WHERE id = ' + id, (err, happiness)  => {
             if(err) {
                 next(err)
             }
             else {
-                res.status(200).send(xml({Countries: country}));
+                res.status(200).send(xml({Countries: happiness}));
             }
         });
     }

@@ -7,7 +7,7 @@ const {
     postInternetCountry,
     updateInternetCountry,
     deleteInternetCountry
-} = require('../controller/happiness');
+} = require('../controller/internet');
 
 internetRouter.get('/', getAllInternetCountries);
 internetRouter.get('/:id', getAllInternetCountriesById);
