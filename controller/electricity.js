@@ -2,27 +2,59 @@ const dbConnect = require('../dbConnect');
 
 const JsonValidator = require('jsonschema').Validator;
 const v = new JsonValidator();
-const electricitySchemaJson = require('../schemaForValidation/electricity');
+const electricitySchemaJson = require('../schemaForValidation/electricityJSON');
 v.addSchema(electricitySchemaJson);
 
 const xml = require("object-to-xml");
+const libxml = require('libxmljs2');
+
+const electricitySchemaXml = require('../schemaForValidation/electricityXsd');
+const xmlDoc = libxml.parseXmlString(electricitySchemaXml);
 
 exports.getAllCountriesAndElectricityConsumption = (req, res, next) => {
-    dbConnect.query('SELECT * FROM electricity',(err, electricityConsumption) => {
+    dbConnect.query('SELECT * FROM electricity',(err, electricity) => {
         if(err) {
             next(err)
         } else {
             if(req.get('Content-Type') === 'application/xml') {
-                res.send(xml( {electricityConsumption: electricityConsumption}));
+                res.send(xml( {electricityConsumption: electricity}));
             }
             if(req.get('Content-Type') === 'application/json') {
-                res.status(200).json({electricityConsumption: electricityConsumption});
+                res.status(200).json({electricityConsumption: electricity});
             }
         }
     });
 };
 
-exports.createCountryAndElectricityConsumption = (req, res, next) => {
+exports.getAllCountriesAndElectricityConsumptionByCountry = (req, res, next) => {
+    if(req.get('Content-Type') === 'application/json'){
+        const country = req.params.country;
+
+        dbConnect.query('SELECT * FROM alcohol WHERE country = ' + country, (err, electricity)  => {
+            if(err) {
+                next(err)
+            }
+            else {
+                res.status(200).json({alcohols: {electricity}})
+            }
+        });
+    }
+
+    if(req.get('Content-Type') === 'application/xml') {
+        const country = req.params.country;
+
+        dbConnect.query('SELECT * FROM electricity WHERE country = ' + country, (err, electricity)  => {
+            if(err) {
+                next(err)
+            }
+            else {
+                res.status(200).send(xml({electricity: electricity}));
+            }
+        });
+    }
+};
+
+exports.postCountryAndElectricityConsumption = (req, res, next) => {
     if(req.get('Content-Type') === 'application/json') {
         const country = req.body.country;
         const percentage = req.body.percentage;
@@ -35,8 +67,8 @@ exports.createCountryAndElectricityConsumption = (req, res, next) => {
         }
 
         const electricityDetails = {
-            name: country,
-            year: percentage,
+            country: country,
+            percentage: percentage
         };
 
         dbConnect.query('INSERT INTO electricity SET ?', electricityDetails, (err) => {
@@ -44,8 +76,117 @@ exports.createCountryAndElectricityConsumption = (req, res, next) => {
                 next(err)
             }
             else {
-                res.status(201).json({electricityConsumption: req.body});
+                res.status(201).json({electricity: req.body});
             }
         })
+    }
+
+    if(req.get('Content-Type') === 'application/xml') {
+        const electricityXmlData = parseXmlString(req.body);
+
+        const country = electricityXmlData.get('//country');
+        const percentage = electricityXmlData.get('//percentage');
+
+        if(electricityXmlData.validate(xmlDoc)) {
+            const electricityDetails = {
+                country: country.text(),
+                percentage: percentage.text()
+            };
+            dbConnect.query('INSERT INTO electricity SET ?', electricityDetails, (err) => {
+                if(err) {
+                    next(err)
+                }
+                else {
+                    res.status(201).send(req.body);
+                }
+            });
+        }
+        else {
+            res.status(401).send('Xml does not match with xsd schema');
+        }
+    }
+};
+
+exports.updateCountryAndElectricityConsumption = (req, res, next) => {
+    if(req.get('Content-Type') === 'application/json') {
+        const id = req.params.id;
+
+        const country = req.body.country;
+        const percentage = req.body.percentage;
+
+        try {
+            v.validate(req.body, electricitySchemaJson, {throwError: true})
+        } catch (e) {
+            res.status(401).send('Json does not match with schema ' + e.message);
+            return;
+        }
+        const electricityDetails = {
+            country: country,
+            percentage: percentage,
+        };
+
+        dbConnect.query('UPDATE electricity SET ? WHERE id = ' + id, electricityDetails, (err)  => {
+            if(err) {
+                next(err)
+            }
+            else {
+                res.status(201).json({electricity: req.body});
+            }
+        });
+    }
+
+    if(req.get('Content-Type') === 'application/xml') {
+        const electricityXmlData = libxml.parseXmlString(req.body);
+
+        const country = electricityXmlData.get('//country');
+        const percentage = electricityXmlData.get('//percentage');
+
+        if(electricityXmlData.validate(xmlDoc)) {
+            const id = req.params.id;
+
+            const electricityDetails = {
+                country: country.text(),
+                percentage: percentage.text(),
+            };
+            dbConnect.query('UPDATE electricity SET ? WHERE id = ' + id, electricityDetails, (err) => {
+                if(err) {
+                    next(err)
+                }
+                else {
+                    res.status(201).send(req.body);
+                }
+            });
+        }
+        else {
+            res.status(401).send('Xml does not match with xsd schema');
+        }
+    }
+};
+
+exports.deleteCountryAndElectricityConsumption = (req, res, next) => {
+    if(req.get('Content-Type') === 'application/json') {
+        const id = req.params.id;
+
+        dbConnect.query('DELETE FROM electricity WHERE id = ' + id, (err)  => {
+            if(err) {
+                next(err)
+            }
+            else {
+                res.status(200).send("Deleted successfully");
+            }
+        });
+    }
+
+    if(req.get('Content-Type') === 'application/xml') {
+        const id = req.params.id;
+
+        dbConnect.query('DELETE FROM electricity WHERE id = ' + id, (err)  => {
+            if(err) {
+                next(err)
+            }
+            else {
+                res.status(200).send("Deleted successfully");
+            }
+        });
     }
 };
