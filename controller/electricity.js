@@ -30,7 +30,7 @@ exports.getAllCountriesAndElectricityConsumptionById = (req, res, next) => {
     if(req.get('Content-Type') === 'application/json'){
         const id = req.params.id;
 
-        dbConnect.query('SELECT * FROM alcohol WHERE id = ' + id, (err, electricity)  => {
+        dbConnect.query('SELECT * FROM electricity WHERE id = ' + id, (err, electricity)  => {
             if(err) {
                 next(err)
             }

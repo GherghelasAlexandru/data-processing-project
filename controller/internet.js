@@ -152,7 +152,7 @@ exports.updateInternetCountry = (req, res, next) => {
 
         const country = internetXmlData.get('//country');
         const internet_users = internetXmlData.get('//internet_users');
-        const population = internetXmlData.get('//scpopulationore');
+        const population = internetXmlData.get('//population');
         const percentage = internetXmlData.get('//percentage');
 
         if(internetXmlData.validate(xmlDoc)) {
