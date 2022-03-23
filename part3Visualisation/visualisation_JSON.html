@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<body>
+
+<canvas id="happinessChart" style="width:100%;max-width:1000px"></canvas>
+<canvas id="electricityChart" style="width:100%;max-width:1000px"></canvas>
+<canvas id="internetChart" style="width:100%;max-width:1000px"></canvas>
+<canvas id="combinedChart" style="width:100%;max-width:1000px"></canvas>
+
+
+<script>
+
+    let lowScore = 0;
+    let mediumScore = 0;
+    let highScore = 0;
+
+    let lowElectricityUsage = 0;
+    let mediumElectricityUsage = 0;
+    let highElectricityUsage = 0;
+
+    let lowInternetUsage = 0;
+    let mediumInternetUsage = 0;
+    let highInternetUsage = 0;
+
+    let xValuesElectricity = ["Less than 50% access to electricity", "Between 50% and 80% access to electricity", "More than 80% access to electricity"];
+    let xValuesInternet = ["Low (less than 50%)", "Medium (50% and 80%)", "High (more than 80%)"];
+
+    let barColors = ["brown", "orange","green"];
+
+
+    chart();
+
+    async function chart()
+    {
+        await getHappinessScore();
+        await getElectricityUsage();
+        await getInternetUsage();
+
+        new Chart("happinessChart", {
+            type: "bar",
+            data: {
+                labels: [lowScore + " countries with low score", mediumScore + " countries with medium score", highScore + "countries with high score"],
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: [lowScore, mediumScore, highScore]
+                }]
+            },
+            options: {
+                legend: {display: false},
+                title: {
+                    display: true,
+                    text: "World happiness report based on score"
+                }
+            }
+        });
+
+        new Chart("electricityChart", {
+            type: "bar",
+            data: {
+                labels: xValuesElectricity,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: [lowElectricityUsage, mediumElectricityUsage, highElectricityUsage]
+                }]
+            },
+            options: {
+                legend: {display: false},
+                title: {
+                    display: true,
+                    text: "Number of countries and the access to electricity of the population"
+                }
+            }
+        });
+
+        new Chart("internetChart", {
+            type: "bar",
+            data: {
+                labels: xValuesInternet,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: [lowInternetUsage, mediumInternetUsage, highInternetUsage]
+                }]
+            },
+            options: {
+                legend: {display: false},
+                title: {
+                    display: true,
+                    text: "Number of countries and the access to internet of the population"
+                }
+            }
+        });
+
+        new Chart("combinedChart", {
+            type: "line",
+            data: {
+                labels: [50, 80, 100] ,
+                datasets: [{
+
+                    data: [lowInternetUsage, mediumInternetUsage, highInternetUsage],
+                    borderColor: "brown",
+                    fill: false
+                }, {
+
+                    data: [lowElectricityUsage, mediumElectricityUsage, highElectricityUsage],
+                    borderColor: "blue",
+                    fill: false
+                    }, {
+
+                    data: [lowScore, mediumScore, highScore],
+                    borderColor: "orange",
+                    fill: false
+                    }]
+            },
+            options: {
+                legend: {display: false},
+                title: {
+                    display: true,
+                    text: "Visualisation combined data"
+                }
+            }
+        });
+
+    }
+
+    async function getHappinessScore() {
+        await fetch('http://localhost:8080/api/happiness', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(res => {
+            return res.json();
+        }).then(data => {
+
+            let score = data.Countries.map(function(index){
+                return index.score;
+            });
+            //console.log(score.length);
+            for(let i = 0; i < score.length; i++) {
+                if(score[i] < 3) {
+                    lowScore++;
+                }
+                if(score[i]>= 3 && score[i] < 5) {
+                    mediumScore++;
+                }
+                if(score[i] >= 5) {
+                    highScore++;
+                }
+
+            }
+             //console.log(lowScore);
+             //console.log(mediumScore);
+             console.log(highScore);
+
+        });
+    }
+
+    async function getElectricityUsage() {
+        await fetch('http://localhost:8080/api/electricity', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(res => {
+            return res.json();
+        }).then(data => {
+
+            let percentage = data.electricityConsumption.map(function(index){
+                return index.percentage;
+            });
+            //console.log(percentage.length);
+            for(let i = 0; i < percentage.length; i++) {
+                if(percentage[i] < 50) {
+                    lowElectricityUsage++;
+                }
+                if(percentage[i]>= 50 && percentage[i] < 70) {
+                    mediumElectricityUsage++;
+                }
+                if(percentage[i] >= 70) {
+                    highElectricityUsage++;
+                }
+
+            }
+            //console.log(lowElectricityUsage);
+            //console.log(mediumElectricityUsage);
+            console.log(highElectricityUsage);
+        });
+    }
+
+    async function getInternetUsage() {
+        await fetch('http://localhost:8080/api/internet', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(res => {
+            return res.json();
+        }).then(data => {
+
+            let percentage = data.Countries.map(function(index){
+                return index.percentage;
+            });
+            //console.log(percentage.length);
+            for(let i = 0; i < percentage.length; i++) {
+                if(percentage[i] < 50) {
+                    lowInternetUsage++;
+                }
+                if(percentage[i]>= 50 && percentage[i] < 70) {
+                    mediumInternetUsage++;
+                }
+                if(percentage[i] >= 70) {
+                    highInternetUsage++;
+                }
+
+            }
+            //console.log(lowInternetUsage);
+            //console.log(mediumInternetUsage);
+            console.log(highInternetUsage);
+        });
+
+    }
+
+
+</script>
+
+</body>
+</html>
