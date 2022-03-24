@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="758dd867-b536-482f-b6ad-c101a6c2a8ba" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/part3Visualisation/visualisation_JSON.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/part3Visualisation/visualisation_XML.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/happy_internet.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/test_JSON_XML.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataProcessing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/DataProcessing.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +55,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Alex\Documents\GitHub\DataProcessingAssignment\database" />
       <recent name="C:\Users\Alex\Documents\GitHub\DataProcessingAssignment\part1Schema\JSON" />
       <recent name="C:\Users\Alex\Documents\GitHub\DataProcessingAssignment\part1Schema" />
       <recent name="C:\Users\Alex\Documents\GitHub\DataProcessingAssignment\schemaForValidation" />
@@ -79,7 +79,7 @@
       <workItem from="1647893165414" duration="11210000" />
       <workItem from="1647909802989" duration="1068000" />
       <workItem from="1647953696321" duration="29516000" />
-      <workItem from="1648038700280" duration="25567000" />
+      <workItem from="1648038700280" duration="30953000" />
     </task>
     <servers />
   </component>
