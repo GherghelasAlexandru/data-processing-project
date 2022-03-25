@@ -1,16 +1,20 @@
 const dbConnect = require('../dbConnect');
 
+// for validating json schema
 const JsonValidator = require('jsonschema').Validator;
 const v = new JsonValidator();
-const electricitySchemaJson = require('../schemaForValidation/electricity_JSON');
-v.addSchema(electricitySchemaJson);
 
+// for validating xml schema
 const xml = require("object-to-xml");
 const libxml = require('libxmljs2');
 
+// importing the electricity schema
+const electricitySchemaJson = require('../schemaForValidation/electricity_JSON');
+v.addSchema(electricitySchemaJson);
 const electricitySchemaXml = require('../schemaForValidation/electricity_XSD');
 const xmlDoc = libxml.parseXmlString(electricitySchemaXml);
 
+// get all countries and electricity consumption
 exports.getAllCountriesAndElectricityConsumption = (req, res, next) => {
     dbConnect.query('SELECT * FROM electricity',(err, electricity) => {
         if(err) {
@@ -26,6 +30,7 @@ exports.getAllCountriesAndElectricityConsumption = (req, res, next) => {
     });
 };
 
+// get all countries and electricity consumption by id
 exports.getAllCountriesAndElectricityConsumptionById = (req, res, next) => {
     if(req.get('Content-Type') === 'application/json'){
         const id = req.params.id;
@@ -39,7 +44,6 @@ exports.getAllCountriesAndElectricityConsumptionById = (req, res, next) => {
             }
         });
     }
-
     if(req.get('Content-Type') === 'application/xml') {
         const id = req.params.id;
 
@@ -54,6 +58,7 @@ exports.getAllCountriesAndElectricityConsumptionById = (req, res, next) => {
     }
 };
 
+// post
 exports.postCountryAndElectricityConsumption = (req, res, next) => {
     if(req.get('Content-Type') === 'application/json') {
 
@@ -108,10 +113,10 @@ exports.postCountryAndElectricityConsumption = (req, res, next) => {
     }
 };
 
+// update
 exports.updateCountryAndElectricityConsumption = (req, res, next) => {
     if(req.get('Content-Type') === 'application/json') {
         const id = req.params.id;
-
         const country = req.body.country;
         const percentage = req.body.percentage;
 
@@ -164,6 +169,7 @@ exports.updateCountryAndElectricityConsumption = (req, res, next) => {
     }
 };
 
+// delete
 exports.deleteCountryAndElectricityConsumption = (req, res, next) => {
     if(req.get('Content-Type') === 'application/json') {
         const id = req.params.id;

@@ -1,16 +1,20 @@
 const dbConnect = require('../dbConnect');
 
+// for validating json schema
 const JsonValidator = require('jsonschema').Validator;
 const v = new JsonValidator();
-const happinessSchemaJson = require('../schemaForValidation/happiness_JSON');
-v.addSchema(happinessSchemaJson);
 
+// for validating xml schema
 const xml = require("object-to-xml");
 const libxml = require('libxmljs2');
 
+// importing the happiness schema
+const happinessSchemaJson = require('../schemaForValidation/happiness_JSON');
+v.addSchema(happinessSchemaJson);
 const happinessSchemaXml = require('../schemaForValidation/happiness_XSD');
 const xmlDoc = libxml.parseXmlString(happinessSchemaXml);
 
+// get all countries and happiness
 exports.getAllCountriesAndHappiness = (req, res, next) => {
     dbConnect.query('SELECT * FROM happiness',(err, happiness) => {
         if(err) {
@@ -26,6 +30,7 @@ exports.getAllCountriesAndHappiness = (req, res, next) => {
     });
 };
 
+// get all countries and happiness by id
 exports.getAllCountriesAndHappinessById = (req, res, next) => {
     if(req.get('Content-Type') === 'application/json'){
         const id = req.params.id;
@@ -54,6 +59,7 @@ exports.getAllCountriesAndHappinessById = (req, res, next) => {
     }
 };
 
+//post
 exports.postCountryAndHappiness = (req, res, next) => {
     if(req.get('Content-Type') === 'application/json') {
         const rank = req.body.rank;
@@ -111,6 +117,7 @@ exports.postCountryAndHappiness = (req, res, next) => {
     }
 };
 
+//update
 exports.updateCountryAndHappiness = (req, res, next) => {
     if(req.get('Content-Type') === 'application/json') {
         const id = req.params.id;
@@ -171,6 +178,7 @@ exports.updateCountryAndHappiness = (req, res, next) => {
     }
 };
 
+// delete
 exports.deleteCountryAndHappiness = (req, res, next) => {
     if(req.get('Content-Type') === 'application/json') {
         const id = req.params.id;

@@ -1,6 +1,7 @@
 const express = require('express');
 const electricityConsumptionRouter = express.Router();
 
+// requiring all the electricity controller for CRUD logic
 const {
         getAllCountriesAndElectricityConsumption,
         getAllCountriesAndElectricityConsumptionById,

@@ -5,8 +5,7 @@ const electricityConsumptionRouter = require('./electricity');
 const happinessRouter = require('./happiness');
 const internetRouter = require('./internet');
 
-
-//specify all endpoint
+//endpoints
 apiRouter.use('/electricity', electricityConsumptionRouter);
 apiRouter.use('/happiness', happinessRouter);
 apiRouter.use('/internet', internetRouter);

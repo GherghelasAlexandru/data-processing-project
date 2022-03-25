@@ -17,21 +17,17 @@
               "type": "string",
               "minimum": 1,
               "description": "The rank of the country based on score"
-
             },
 
             "country": {
               "type": "string",
               "minimum": 1,
               "description": "The name of the country"
-
             },
-
             "score": {
               "type": "integer",
               "minimum": 1,
               "description": "The happiness score of the country"
-
             }
           },
           "required": ["rank", "country", "score"]

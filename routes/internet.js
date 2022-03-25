@@ -1,6 +1,7 @@
 const express = require('express');
 const internetRouter = express.Router();
 
+// requiring all the internet controller CRUD logic
 const {
     getAllInternetCountries,
     getAllInternetCountriesById,

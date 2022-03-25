@@ -1,6 +1,7 @@
 const express = require('express');
 const happinessRouter = express.Router();
 
+// requiring all the happiness controller for CRUD logic
 const {
     getAllCountriesAndHappiness,
     getAllCountriesAndHappinessById,

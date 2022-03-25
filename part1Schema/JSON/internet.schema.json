@@ -17,25 +17,21 @@
               "type": "string",
               "minimum": 1,
               "description": "The name of the country"
-
             },
             "internet_users": {
               "type": "integer",
               "minimum": 1,
               "description": "The number of internet user from the country"
-
             },
             "population": {
               "type": "integer",
               "minimum": 1,
               "description": "The population of the country"
-
             },
             "percentage": {
               "type": "integer",
               "minimum": 1,
               "description": "Amount of electricity consumption in %"
-
             }
           },
           "required": ["country", "internet_users", "population", "percentage"]

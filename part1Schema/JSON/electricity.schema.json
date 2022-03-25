@@ -17,14 +17,11 @@
               "type": "string",
               "minimum": 1,
               "description": "The name of the country"
-
             },
-
             "percentage": {
               "type": "integer",
               "minimum": 1,
               "description": "Amount of electricity consumption in %"
-
             }
           },
           "required": ["id", "country", "percentage"]

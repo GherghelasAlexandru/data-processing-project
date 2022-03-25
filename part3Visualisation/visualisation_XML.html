@@ -8,17 +8,19 @@
 <canvas id="internetChart" style="width:100%;max-width:1000px"></canvas>
 <canvas id="combinedChart" style="width:100%;max-width:1000px"></canvas>
 
-
 <script>
 
+    // variables used to store the number of countries with a low, medium or high happiness score
     let lowScore = 0;
     let mediumScore = 0;
     let highScore = 0;
 
+    // variables used to store the number of countries with a low, medium or high access to electricity
     let lowElectricityUsage = 0;
     let mediumElectricityUsage = 0;
     let highElectricityUsage = 0;
 
+    // variables used to store the number of countries with a low, medium or high access to internet
     let lowInternetUsage = 0;
     let mediumInternetUsage = 0;
     let highInternetUsage = 0;
@@ -28,9 +30,9 @@
 
     let barColors = ["brown", "orange","green"];
 
-
     chart();
 
+    // creating all the charts
     async function chart()
     {
         await getHappinessScore();
@@ -96,17 +98,14 @@
             data: {
                 labels: [50, 80, 100] ,
                 datasets: [{
-
                     data: [lowInternetUsage, mediumInternetUsage, highInternetUsage],
                     borderColor: "brown",
                     fill: false
                 }, {
-
                     data: [lowElectricityUsage, mediumElectricityUsage, highElectricityUsage],
                     borderColor: "blue",
                     fill: false
                 }, {
-
                     data: [lowScore, mediumScore, highScore],
                     borderColor: "orange",
                     fill: false
@@ -123,6 +122,8 @@
 
     }
 
+    // determine if the happiness score is low, medium or high
+    // low(<3), medium(between 3 & 5), high(>=5)
     async function getHappinessScore() {
         await fetch('http://localhost:8080/api/happiness', {
             method: 'GET',
@@ -137,7 +138,6 @@
             let xml  = parser.parseFromString(data, "application/xml");
             let score =  xml.getElementsByTagName('score');
 
-            console.log(score.length);
             for(let i = 0; i < score.length; i++) {
                 let newScore = score[i].firstChild.nodeValue;
                 if(newScore < 3) {
@@ -151,13 +151,11 @@
                 }
 
             }
-            //console.log(lowScore);
-            //console.log(mediumScore);
-            console.log(highScore);
-
         });
     }
 
+    // determine if the electricity usage is low, medium or high
+    // low(<50%), medium(between 50% & 70%), high(>=70%)
     async function getElectricityUsage() {
         await fetch('http://localhost:8080/api/electricity', {
             method: 'GET',
@@ -172,8 +170,6 @@
             let xml  = parser.parseFromString(data, "application/xml");
             let percentage =  xml.getElementsByTagName('score');
 
-            console.log(percentage.length);
-
             for(let i = 0; i < percentage.length; i++) {
                 let newPercentage = percentage[i].firstChild.nodeValue;
                 if(newPercentage < 50) {
@@ -185,14 +181,12 @@
                 if(newPercentage >= 70) {
                     highElectricityUsage++;
                 }
-
             }
-            //console.log(lowElectricityUsage);
-            //console.log(mediumElectricityUsage);
-            console.log(highElectricityUsage);
         });
     }
 
+    // determine if the internet usage is low, medium or high
+    // low(<50%), medium(between 50% & 70%), high(>=70%)
     async function getInternetUsage() {
         await fetch('http://localhost:8080/api/internet', {
             method: 'GET',
@@ -207,8 +201,6 @@
             let xml  = parser.parseFromString(data, "application/xml");
             let percentage =  xml.getElementsByTagName('score');
 
-            console.log(percentage.length);
-
             for(let i = 0; i < percentage.length; i++) {
                 let newPercentage = percentage[i].firstChild.nodeValue;
                 if(newPercentage < 50) {
@@ -220,17 +212,10 @@
                 if(newPercentage >= 70) {
                     highInternetUsage++;
                 }
-
             }
-            //console.log(lowInternetUsage);
-            //console.log(mediumInternetUsage);
-            console.log(highInternetUsage);
         });
-
     }
 
-
 </script>
-
 </body>
 </html>

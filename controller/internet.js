@@ -1,16 +1,20 @@
 const dbConnect = require('../dbConnect');
 
+// for validating json schema
 const JsonValidator = require('jsonschema').Validator;
 const v = new JsonValidator();
-const internetSchemaJson = require('../schemaForValidation/internet_JSON');
-v.addSchema(internetSchemaJson);
 
+// for validating xml schema
 const xml = require("object-to-xml");
 const libxml = require('libxmljs2');
 
+// importing the internet schema
+const internetSchemaJson = require('../schemaForValidation/internet_JSON');
+v.addSchema(internetSchemaJson);
 const internetSchemaXml = require('../schemaForValidation/internet_XSD');
 const xmlDoc = libxml.parseXmlString(internetSchemaXml);
 
+// get all countries and internet usage
 exports.getAllInternetCountries = (req, res, next) => {
     dbConnect.query('SELECT * FROM internet',(err, internet) => {
         if(err) {
@@ -26,6 +30,7 @@ exports.getAllInternetCountries = (req, res, next) => {
     });
 };
 
+// get all countries and internet usage by id
 exports.getAllInternetCountriesById = (req, res, next) => {
     if(req.get('Content-Type') === 'application/json'){
         const id = req.params.id;
@@ -54,6 +59,7 @@ exports.getAllInternetCountriesById = (req, res, next) => {
     }
 };
 
+// post
 exports.postInternetCountry = (req, res, next) => {
     if(req.get('Content-Type') === 'application/json') {
         const country = req.body.country;
@@ -115,6 +121,7 @@ exports.postInternetCountry = (req, res, next) => {
     }
 };
 
+//update
 exports.updateInternetCountry = (req, res, next) => {
     if(req.get('Content-Type') === 'application/json') {
         const id = req.params.id;
@@ -179,6 +186,7 @@ exports.updateInternetCountry = (req, res, next) => {
     }
 };
 
+// delete
 exports.deleteInternetCountry = (req, res, next) => {
     if(req.get('Content-Type') === 'application/json') {
         const id = req.params.id;
